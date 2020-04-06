@@ -1,0 +1,27 @@
+# Contributor: buildozer <alpine-infra@lists.alpinelinux.org>
+# Maintainer:
+pkgname="husky-hptzip-dev"
+pkgver="1.9.20191205"
+pkgrel=0
+pkgdesc="Fido Husky Project"
+url="https://github.com/huskyproject/hptzip"
+arch="all"
+license="GPL2"
+makedepends="cmake zlib-static zlib-dev husky-lib-dev"
+_pkgcommit="b336a8545e7679af87d831945e5edb89bb559668"
+source="$pkgname.zip::https://github.com/huskyproject/hptzip/archive/$_pkgcommit.zip"
+options="!check"
+
+_pkgname="hptzip"
+builddir="$srcdir/$_pkgname-$_pkgcommit"
+
+build() {
+    cmake -H. -Bbuild -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=$pkgdir/usr
+    cmake --build build
+}
+
+package() {
+ 	cmake --build build --target install
+}
+
+sha512sums="4a26d894f180bf5365724c39a5b0ce77e299882119add3470068c199c08e9659b584d04d54baf62ddd1c950bdac417cfe2a4015115f324bddef28cf8bb12fdde  husky-hptzip-dev.zip"

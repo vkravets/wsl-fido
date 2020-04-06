@@ -1,0 +1,27 @@
+# Contributor: buildozer <alpine-infra@lists.alpinelinux.org>
+# Maintainer:
+pkgname="husky-smapi-dev"
+pkgver="1.9.20191205"
+pkgrel=0
+pkgdesc="Fido Husky Project - smapi"
+url="https://github.com/huskyproject/smapi/"
+arch="all"
+license="GPL2"
+makedepends="cmake perl husky-lib-dev"
+_pkgcommit="ddfbd4149a53a703da48df414c84b7d32a694fef"
+source="$pkgname.zip::https://github.com/huskyproject/smapi/archive/$_pkgcommit.zip"
+options="!check"
+
+_pkgname="smapi"
+builddir="$srcdir/$_pkgname-$_pkgcommit"
+
+build() {
+    cmake -H. -Bbuild -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=$pkgdir/usr
+    cmake --build build
+}
+
+package() {
+ 	cmake --build build --target install
+}
+
+sha512sums="b12a977b52b611d5fede638c0b67a081a49b25b99aab2cac0b9e6123e017504e93da887aca11d0067dd66a4ed2431f5106c7ee1d8b944e5e4b5b95fe65d1c8f6  husky-smapi-dev.zip"

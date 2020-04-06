@@ -1,0 +1,27 @@
+# Contributor: buildozer <alpine-infra@lists.alpinelinux.org>
+# Maintainer:
+pkgname="husky-hpt"
+pkgver="1.9.20191205"
+pkgrel=0
+pkgdesc="Fido Husky Project"
+url="https://github.com/huskyproject/hpt/"
+arch="all"
+license="GPL2"
+depends="husky-fidoconf husky-lib perl"
+makedepends="cmake perl-dev zlib-dev zlib-static husky-lib-dev husky-smapi-dev husky-fidoconf-dev husky-areafix-dev husky-hptzip-dev"
+
+_pkgname="hpt"
+source="https://github.com/huskyproject/hpt/archive/$_pkgname-$pkgver.zip"
+
+builddir="$srcdir/$_pkgname-$_pkgname-$pkgver"
+
+build() {
+    cmake -H. -Bbuild -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=$pkgdir/usr
+    cmake --build build
+}
+
+package() {
+ 	cmake --build build --target install
+}
+
+sha512sums="1d2a07cc9575abb2892df21ec2217e0653471388b51e65fc2566be4876d97e7ff874310690f5cb3314200df22cfeb3408c677d8bb11fad3f6a51c19de958b09e  $_pkgname-$pkgver.zip"

@@ -1,0 +1,28 @@
+# Contributor: buildozer <alpine-infra@lists.alpinelinux.org>
+# Maintainer:
+pkgname="husky-fidoconf"
+pkgver="1.9.20191205"
+pkgrel=0
+pkgdesc="Fido Husky Project - fidoconf"
+url="https://github.com/huskyproject/fidoconf/"
+arch="all"
+license="GPL2"
+makedepends="cmake husky-lib-dev husky-smapi-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+_pkgcommit="ab29af2e3017f94bd18405a26b12d03fb6db8009"
+source="$pkgname.zip::https://github.com/huskyproject/fidoconf/archive/$_pkgcommit.zip"
+options="!check"
+
+_pkgname="fidoconf"
+builddir="$srcdir/$_pkgname-$_pkgcommit"
+
+build() {
+    cmake -H. -Bbuild -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=$pkgdir/usr
+    cmake --build build
+}
+
+package() {
+ 	cmake --build build --target install
+}
+
+sha512sums="a2bce5f569be3ade3ce246d250775048211e7b5925292fdc4e4ec736209f73df52241809b0283a05dc4f6a41b185dac57fb78c25f762f7730b8e4f5b44f73bee  husky-fidoconf.zip"

@@ -1,0 +1,28 @@
+# Contributor: buildozer <alpine-infra@lists.alpinelinux.org>
+# Maintainer:
+pkgname="husky-lib"
+pkgver="1.9.20191205"
+pkgrel=0
+pkgdesc="Fido Husky Project - huskylib"
+url="https://github.com/huskyproject/huskylib/"
+arch="all"
+license="GPL2"
+makedepends="cmake perl perl-dev"
+subpackages="$pkgname-dev"
+_pkgcommit="466b2fb0a6b60263240419cecc3b6942e845b3b7"
+source="$pkgname.zip::https://github.com/huskyproject/huskylib/archive/$_pkgcommit.zip"
+options="!check"
+
+_pkgname="huskylib"
+builddir="$srcdir/$_pkgname-$_pkgcommit"
+
+build() {
+    cmake -H. -Bbuild -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=$pkgdir/usr
+    cmake --build build
+}
+
+package() {
+ 	cmake --build build --target install
+}
+
+sha512sums="0e8343150f0a7033eeae6548fc26f89a54b71d3462f7ba253240e50a1e9ecb22c37ee70ec524e9391394bc42e17820fb9edfbb228d2d695db8c7f6844e4c7a07  $pkgname.zip"

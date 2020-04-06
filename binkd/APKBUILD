@@ -1,0 +1,58 @@
+pkgname=binkd
+pkgver=1.1.a99
+pkgrel=1
+pkgdesc="Binkley protocol daemon for transferring files between Fidonet systems"
+arch="all"
+url="https://github.com/pgul/binkd"
+license='GPL'
+depends="zlib"
+depends_lib="zlib"
+makedepends="zlib-dev"
+subpackages="$pkgname-doc"
+_pkgcommit=2165e9fcc1823682c2861cc61ed247685460d6cf
+source="$pkgname-$pkgver.tar.gz::https://github.com/pgul/binkd/tarball/$_pkgcommit"
+options="!check"
+
+_builddir="$srcdir/pgul-binkd-2165e9f"
+
+pkgver() {
+  grep Version "$srcdir/binkd/mkfls/unix/binkd.spec" | awk '{ print $2 }'
+  #git describe --tags | sed 's/^binkd-//; s/-/.r/; s/[-_]/./g'
+}
+
+build() {
+  cd "$_builddir"
+  cp mkfls/unix/Makefile* .
+  cp mkfls/unix/configure* .
+  cp mkfls/unix/install-sh .
+  cp mkfls/unix/mkinstalldirs .
+
+  ./configure \
+    --prefix=/usr           \
+    --sbindir=/usr/bin      \
+    --mandir=/usr/share/man \
+    --sysconfdir=/etc       \
+    --with-debug            \
+    --with-zlib             \
+    ;
+  make
+}
+
+package() {
+  cd "$_builddir"
+  make DESTDIR="$pkgdir" install
+
+  mv "$pkgdir/usr/sbin" "$pkgdir/usr/bin"
+
+  install -dm0755 "$pkgdir/etc/binkd"
+  mv "$pkgdir/etc/binkd.conf-dist" "$pkgdir/etc/binkd/binkd.conf"
+
+  mkdir -p "$pkgdir/var/spool/ftn/inbound-temp
+  mkdir -p "$pkgdir/var/spool/ftn/inbound-unsecure
+  mkdir -p "$pkgdir/var/spool/ftn/outbound/fidonet
+  mkdir -p "$pkgdir/var/spool/ftn/longbox
+  mkdir -p "$pkgdir/var/spool/ftn/personalboxes
+  mkdir -p "$pkgdir/var/spool/ftn/nodelist
+}
+
+sha512sums="d04afa16badbbcc470dd1efe936d7aaf62ddb5062430ea7f56f04462a79a71dad8bf586a71d12b1a807d160f03b3c13873b2f7f528152df9bb37197839fd92e0  binkd-1.1.a99.tar.gz"

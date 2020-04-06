@@ -1,0 +1,27 @@
+# Contributor: buildozer <alpine-infra@lists.alpinelinux.org>
+# Maintainer:
+pkgname="husky-areafix-dev"
+pkgver="1.9.20191205"
+pkgrel=0
+pkgdesc="Fido Husky Project - areafix"
+url="https://github.com/huskyproject/areafix/"
+arch="all"
+license="GPL2"
+makedepends="cmake husky-lib-dev husky-smapi-dev husky-fidoconf-dev"
+_pkgcommmit="a06d42caf31ba09d4eab3e12c59f73d189c6fdea"
+source="$pkgname.zip::https://github.com/huskyproject/areafix/archive/$_pkgcommmit.zip"
+options="!check"
+
+_pkgname="areafix"
+builddir="$srcdir/$_pkgname-$_pkgcommmit"
+
+build() {
+    cmake -H. -Bbuild -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=$pkgdir/usr
+    cmake --build build
+}
+
+package() {
+ 	cmake --build build --target install
+}
+
+sha512sums="fa557be0ad78fe352785d11c1cd5f9c59c6f3acd32adacf8f966b04a52156434a96f1ae3956bc24f12fb45f3f923290def62df02167cc2fede0354ef3cb29d4f  husky-areafix-dev.zip"

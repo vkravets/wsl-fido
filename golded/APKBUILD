@@ -1,0 +1,26 @@
+# Contributor: buildozer <alpine-infra@lists.alpinelinux.org>
+# Maintainer:
+pkgname="golded-plus"
+pkgver="1.1.5"
+pkgrel="20180707-1"
+pkgdesc="GoldED+ Fidonet Message Editor"
+url="https://github.com/golded-plus/golded-plus/"
+arch="all"
+license="GPL2"
+makedepends="cmake clang"
+subpackages="$pkgname-doc"
+source="https://github.com/golded-plus/golded-plus/archive/$pkgname-$pkgver-$pkgrel.zip"
+
+builddir="$srcdir/$pkgname-$pkgname-$pkgver-$pkgrel"
+
+build() {
+    cp golded3/mygolded.__h golded3/mygolded.h
+    env CC='clang' CXX='clang++' cmake -H. -Bbuild -DCMAKE_INSTALL_PREFIX=$pkgdir/usr
+    cmake --build build
+}
+
+package() {
+ 	cmake --build build --target install
+}
+
+sha512sums="213d3f4371aceaaf650ea45f18937b093382975556726b7811e64751d9fe01db2fb6d75a7a41b1d41b59687196ad8b4852905aba050df24d6f27df95d4159699  $pkgname-$pkgver-$pkgrel.zip"

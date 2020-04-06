@@ -1,0 +1,25 @@
+# Contributor: buildozer <alpine-infra@lists.alpinelinux.org>
+# Maintainer:
+pkgname="luit"
+pkgver="2.0"
+pkgrel="20190106"
+pkgdesc="Locale and ISO 2022 support for Unicode terminals"
+url="https://invisible-island.net/luit"
+arch="all"
+license="GPL2"
+makedepends="make gcc autoconf zlib-dev zlib util-macros"
+subpackages="$pkgname-doc"
+source="https://invisible-island.net/datafiles/release/luit.tar.gz"
+
+builddir="$srcdir/$pkgname-$pkgrel"
+
+build() {
+    ./configure --prefix=$pkgdir/usr
+    make
+}
+
+package() {
+ 	make install
+}
+
+sha512sums="4324ff2793635e12e7fc0df2d7c5cdeb6241591105d0cfaf40a0da06a08764f08c5ef5f6fc19bc0e5d1f4b34b90e14b7aa393a0e613f5e096c6f91c90988215b  $pkgname.tar.gz"
