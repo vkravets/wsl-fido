@@ -47,12 +47,12 @@ package() {
   install -dm0755 "$pkgdir/etc/binkd"
   mv "$pkgdir/etc/binkd.conf-dist" "$pkgdir/etc/binkd/binkd.conf"
 
-  mkdir -p "$pkgdir/var/spool/ftn/inbound-temp
-  mkdir -p "$pkgdir/var/spool/ftn/inbound-unsecure
-  mkdir -p "$pkgdir/var/spool/ftn/outbound/fidonet
-  mkdir -p "$pkgdir/var/spool/ftn/longbox
-  mkdir -p "$pkgdir/var/spool/ftn/personalboxes
-  mkdir -p "$pkgdir/var/spool/ftn/nodelist
+  mkdir -p "$pkgdir/var/spool/ftn/inbound-temp"
+  mkdir -p "$pkgdir/var/spool/ftn/inbound-unsecure"
+  mkdir -p "$pkgdir/var/spool/ftn/outbound/fidonet"
+  mkdir -p "$pkgdir/var/spool/ftn/longbox"
+  mkdir -p "$pkgdir/var/spool/ftn/personalboxes"
+  mkdir -p "$pkgdir/var/spool/ftn/nodelist"
 }
 
 sha512sums="d04afa16badbbcc470dd1efe936d7aaf62ddb5062430ea7f56f04462a79a71dad8bf586a71d12b1a807d160f03b3c13873b2f7f528152df9bb37197839fd92e0  binkd-1.1.a99.tar.gz"
